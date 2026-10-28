@@ -14,10 +14,9 @@ import re
 app = FastAPI()
 
 client = OpenAI(
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-    base_url="https://openrouter.ai/api/v1"
+    api_key=os.getenv("GEMINI_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 )
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -255,7 +254,7 @@ Dados:
 
     try:
         resposta = client.chat.completions.create(
-            model="openai/gpt-oss-20b:free",
+            model=os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite"),
             messages=[
                 {
                     "role": "user",
